@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  label(for="code") Code
+  textarea(id="code" name="code" rows="10" cols="32")
+  input(type="file" id="textcode" name="textcode" accept=".txt")
+  button(type="button") Run!
+  button(type="button") Step!
+  button(type="button") Reset!
