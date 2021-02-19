@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Arquivos de Cabeçalho"
+                   projectFiles="true">
+      <itemPath>Ctrl.h</itemPath>
+      <itemPath>IR.h</itemPath>
+      <itemPath>Machine.h</itemPath>
+      <itemPath>Memory.h</itemPath>
+      <itemPath>Programm.h</itemPath>
+      <itemPath>Register.h</itemPath>
+      <itemPath>Registers.h</itemPath>
+      <itemPath>Resettable.h</itemPath>
+      <itemPath>State.h</itemPath>
+      <itemPath>State0.h</itemPath>
+      <itemPath>State1.h</itemPath>
+      <itemPath>State2.h</itemPath>
+      <itemPath>State3.h</itemPath>
+      <itemPath>State4.h</itemPath>
+      <itemPath>State5.h</itemPath>
+      <itemPath>State6.h</itemPath>
+      <itemPath>State7.h</itemPath>
+      <itemPath>State8.h</itemPath>
+      <itemPath>State9.h</itemPath>
+      <itemPath>StateException.h</itemPath>
+      <itemPath>ToJson.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Arquivos de Código-Fonte"
+                   projectFiles="true">
+      <itemPath>Ctrl.cpp</itemPath>
+      <itemPath>Machine.cpp</itemPath>
+      <itemPath>Memory.cpp</itemPath>
+      <itemPath>Registers.cpp</itemPath>
+      <itemPath>State.cpp</itemPath>
+      <itemPath>State0.cpp</itemPath>
+      <itemPath>State1.cpp</itemPath>
+      <itemPath>State2.cpp</itemPath>
+      <itemPath>State3.cpp</itemPath>
+      <itemPath>State4.cpp</itemPath>
+      <itemPath>State5.cpp</itemPath>
+      <itemPath>State6.cpp</itemPath>
+      <itemPath>State7.cpp</itemPath>
+      <itemPath>State8.cpp</itemPath>
+      <itemPath>State9.cpp</itemPath>
+      <itemPath>StateException.cpp</itemPath>
+      <itemPath>main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Arquivos de Recurso"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Arquivos de Teste"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Arquivos Importantes"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <itemPath>programm.txt</itemPath>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <standard>10</standard>
+        </cTool>
+        <ccTool>
+          <standard>8</standard>
+        </ccTool>
+      </compileType>
+      <item path="Ctrl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Ctrl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="IR.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Machine.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Machine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Memory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Memory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Programm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Register.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Registers.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Registers.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Resettable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State0.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State0.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State1.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State3.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State4.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State4.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State6.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State6.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State7.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State7.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State8.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State8.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State9.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State9.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StateException.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="StateException.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ToJson.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="programm.txt" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <standard>8</standard>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="Ctrl.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Ctrl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="IR.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Machine.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Machine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Memory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Memory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Programm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Register.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Registers.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Registers.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Resettable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State0.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State0.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State1.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State3.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State4.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State4.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State6.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State6.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State7.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State7.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State8.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State8.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State9.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State9.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StateException.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="StateException.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ToJson.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="programm.txt" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
