@@ -13,18 +13,33 @@
 
 #include <iostream>
 #include "Machine.h"
+#include "Programm.h"
 #include "State.h"
 #include "State0.h"
 #include "Programm.h"
 
 Machine::Machine(UINT32 mem_size) : mem(mem_size * 4) {}
 
+Machine::Machine(const Machine& other) :
+        A(other.A), 
+        B(other.B), 
+        PC(other.PC), 
+        MDR(other.MDR), 
+        aluout(other.aluout), 
+        inst_count(other.inst_count), 
+        clock_count(other.clock_count), 
+        ctrl(other.ctrl), 
+        mem(other.mem), 
+        regs(other.regs), 
+        ir(other.ir), 
+        state(other.state) {    }
+
 Machine::~Machine() {
     if (this->state)
         delete this->state;
 }
 
-void Machine::clock(const std::function<void(const Machine&)> fun) {
+bool Machine::clock(/*const std::function<void(const Machine&)> fun*/) {
 
     if (this->inst_count > 0) {
 
@@ -45,35 +60,56 @@ void Machine::clock(const std::function<void(const Machine&)> fun) {
             this->ir_recebe_mem_pc();
             this->inst_count--;
         }
-
-    }
-
-    this->clock_count++;
+        
+        this->clock_count++;
     
-    fun(*this);
+        //fun(*this);
+        
+        return true;
 
+    } 
+    
+    return false;
+    
 }
 
-void Machine::loadProgram(
-        UINT32 adress, 
-        std::string filename, 
-        const std::function<void(const Machine&)> fun) {
+void Machine::loadProgramm(UINT32 address, const Programm &prog){
     
-    std::vector<UINT32> code = Programm::read(filename);
+    std::vector<UINT32> code = prog.getCode();
 
-    this->reset();
+    //this->reset();
 
-    this->PC.setValue(adress);
+    this->PC.setValue(address);
     this->inst_count = code.size();
     
     
     for (int i = 0; i < code.size(); i++) {
-        this->mem.write(adress + (i * 4), code[i]);
+        this->mem.write(address + (i * 4), code[i]);
+    }
+}
+
+
+
+void Machine::loadProgram(
+        UINT32 address, 
+        std::string filename, const std::function<void(const Machine&)> fun
+) {
+    
+    std::vector<UINT32> code = Programm::read(filename);
+
+    //this->reset();
+
+    this->PC.setValue(address);
+    this->inst_count = code.size();
+    
+    
+    for (int i = 0; i < code.size(); i++) {
+        this->mem.write(address + (i * 4), code[i]);
     }
 
-    while (this->inst_count) {
-        this->clock(fun);
-    }
+//    while (this->inst_count) {
+//        this->clock(fun);
+//    }
 
 }
 

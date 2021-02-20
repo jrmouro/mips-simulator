@@ -36,16 +36,7 @@ public:
     virtual void reset();
     UINT32 getSize() const;
     
-    virtual std::string getJson() const {
-
-        std::stringbuf buffer;
-        std::ostream os(&buffer);
-        
-        os << "{ \"self\":\"" << *this << "\" }";
-
-        return buffer.str();
-
-    }
+    virtual std::string getJson() const;
         
     friend std::ostream& operator<<(std::ostream& os, const Memory& obj);
 

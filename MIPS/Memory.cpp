@@ -58,15 +58,15 @@ UINT32 Memory::read(UINT32 address) const {
             ret = ret | v;
 
         } else {
-            
+
             throw std::invalid_argument("invalid memory adress");
-            
+
         }
-        
+
     }
 
     return ret;
-    
+
 }
 
 void Memory::reset() {
@@ -74,13 +74,42 @@ void Memory::reset() {
         this->self[i] = 0;
 }
 
+std::string Memory::getJson() const {
+
+    std::stringbuf buffer;
+    std::ostream os(&buffer);
+
+    os << "{ \"size\":" << this->size << ", \"self\":[";
+
+    int i = 0;
+    for (; i < this->size - 4; i += 4) {
+        os << "\"" << std::setfill('0') << std::setw(8) << std::hex << i << ": ";
+        os << std::setw(2) << (unsigned) this->self[i] << " ";
+        os << std::setw(2) << (unsigned) this->self[i + 1] << " ";
+        os << std::setw(2) << (unsigned) this->self[i + 2] << " ";
+        os << std::setw(2) << (unsigned) this->self[i + 3] << "\", ";
+    }
+    if (this->size) {
+        os << "\"" << std::setfill('0') << std::setw(8) << std::hex << i << ": ";
+        os << std::setw(2) << (unsigned) this->self[i] << " ";
+        os << std::setw(2) << (unsigned) this->self[i + 1] << " ";
+        os << std::setw(2) << (unsigned) this->self[i + 2] << " ";
+        os << std::setw(2) << (unsigned) this->self[i + 3] << "\"";
+    }
+
+    os << "] }";
+
+    return buffer.str();
+
+}
+
 std::ostream& operator<<(std::ostream& os, const Memory& obj) {
-    for (int i = 0; i < obj.size; i+=4) {
+    for (int i = 0; i < obj.size; i += 4) {
         os << std::setfill('0') << std::setw(8) << std::hex << i << ": ";
-        os  << std::setw(2) << (unsigned) obj.self[i] << " ";
-        os  << std::setw(2) << (unsigned) obj.self[i + 1] << " ";
-        os  << std::setw(2) << (unsigned) obj.self[i + 2] << " ";
-        os  << std::setw(2) << (unsigned) obj.self[i + 3] << std::endl;
+        os << std::setw(2) << (unsigned) obj.self[i] << " ";
+        os << std::setw(2) << (unsigned) obj.self[i + 1] << " ";
+        os << std::setw(2) << (unsigned) obj.self[i + 2] << " ";
+        os << std::setw(2) << (unsigned) obj.self[i + 3] << std::endl;
     }
     return os;
 }
