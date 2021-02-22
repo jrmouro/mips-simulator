@@ -26,8 +26,8 @@ using namespace std;
  */
 int main(int argc, char** argv) {
 
-    std::string programm_filename = "programm.txt";
-    std::string programm_out_filename = "out.txt";
+    std::string programm_filename = "programm_empty.txt";
+    std::string programm_out_filename = "out.json";
     unsigned mem_size = 16, address = 0;
 
     if (argc > 1) {
@@ -68,11 +68,6 @@ int main(int argc, char** argv) {
         std::cout << elem << std::endl;
 
     }
-
-//    Memory mem(16);
-//    
-//    std::cout << mem.getJson() << std::endl;
-
 
     return 0;
 }

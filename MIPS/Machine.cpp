@@ -260,7 +260,7 @@ std::string Machine::getJson() const {
             
         } else {
             
-            os << "\"state\":undefined, ";
+            os << "\"state\":null, ";
             
         }
         

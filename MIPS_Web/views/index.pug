@@ -3,3 +3,18 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  p Enter programmm
+  form(action="/programm_submit" method="POST")
+    textarea(name="code" rows=3 cols=33).form-control.
+      100000000010000000000000000100
+      000001000010000100000000100000
+      000000000010000100000001000000
+    p Machine Mem size(words)
+    input(type="number" value=16)
+    p
+    input(type="submit" name="btn" value="exec")
+    input(type="submit" name="btn" value="clock")
+    input(type="submit" name="btn" value="reset") 
+
+  if(frame.state)
+    p State: #{frame.state.description}

@@ -6,3 +6,71 @@ body {
 a {
   color: #00B7FF;
 }
+
+textarea {
+  resize: none;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 1vmin;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: space-around;
+}
+
+button {
+  margin-top: 1vmin;
+  margin-bottom: 1vmin;
+}
+
+.labeled-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+label {
+  font-weight: bold;
+}
+
+table, th, td {
+  border: 1px solid grey;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.5vmin;
+}
+
+.others {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.fgrow-2 {
+  flex-grow: 2;
+}
+
+.fgrow-1 {
+  flex-grow: 1;
+}
+
+.m-1 {
+  margin: 1vmin
+}
+
+.m-2 {
+  margin: 2vmin
+}

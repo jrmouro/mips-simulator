@@ -26,13 +26,17 @@
 class Loader : public ToJson {
 public:
 
-    Loader(): mach(Machine(16)) { }
+    Loader() : mach(Machine(16)) {
+    }
 
-    Loader(const Machine& mach) : mach(mach) { }
+    Loader(const Machine& mach) : mach(mach) {
+    }
 
-    Loader(const Loader& other) : mach(other.mach), output(other.output) { }
+    Loader(const Loader& other) : mach(other.mach), output(other.output) {
+    }
 
-    virtual ~Loader() { }
+    virtual ~Loader() {
+    }
 
     virtual std::string getJson() const {
 
@@ -40,14 +44,22 @@ public:
         std::ostream os(&buffer);
 
         os << "[ ";
-        
-        int i = 0;
-        for(;i < this->output_json.size() - 1; i++)
-            os << this->output_json[i] << ", ";
-        
-        if(this->output_json.size())
+
+        if (this->output_json.size()) {
+
+            int i = 0;
+
+            for (; i < this->output_json.size() - 1; i++)
+                os << this->output_json[i] << ", ";
+
             os << this->output_json[i];
-        
+
+        } else {
+
+            os << this->mach.getJson();
+            
+        }
+
         os << " ]";
 
         return buffer.str();
@@ -75,8 +87,8 @@ public:
         }
 
     }
-    
-    const std::vector<std::string>& getOutput(){
+
+    const std::vector<std::string>& getOutput() {
         return output;
     }
 

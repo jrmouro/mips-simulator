@@ -64,6 +64,7 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
     <itemPath>programm.txt</itemPath>
+    <itemPath>programm_empty.txt</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -160,6 +161,8 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="programm.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="programm_empty.txt" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -262,6 +265,8 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="programm.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="programm_empty.txt" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
