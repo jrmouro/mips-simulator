@@ -16,6 +16,8 @@
 #include "Machine.h"
 #include "Registers.h"
 #include "Ctrl.h"
+#include "Programm.h"
+#include "Loader.h"
 
 using namespace std;
 
@@ -23,37 +25,49 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-    
-//    std::string programm_filename = "programm.txt";
-//    std::string programm_out_filename = "out.txt";
-//    
-//    if(argc > 1){
-//        programm_filename = argv[1];
-//        if(argc > 2){
-//            programm_out_filename = argv[2];
-//        }
-//    }
-//
-    Machine mach(16);
-//    
-//    std::ofstream outfile;
-//    outfile.open(programm_out_filename);
-//    
-//    mach.loadProgram(
-//        0, 
-//        programm_filename,
-//        [&outfile](const Machine& mach){
-//            outfile << mach << std::endl;
-//            std::cout << mach << std::endl;
-//        });
-//    
-//    outfile.close();
-    
-    Ctrl ctrl;
-    Registers regs;
-    
-    std::cout << mach.getJson();
 
+    std::string programm_filename = "programm_empty.txt";
+    std::string programm_out_filename = "out.json";
+    unsigned mem_size = 16, address = 0;
+
+    if (argc > 1) {
+        programm_filename = argv[1];
+        if (argc > 2) {
+            programm_out_filename = argv[2];
+            if (argc > 3) {
+                mem_size = std::stoi(argv[3]);
+                if (argc > 4) {
+                    address = std::stoi(argv[4]);
+                }
+            }
+        }
+    }
+
+    Machine mach(mem_size);
+    Programm prog(programm_filename);
+    Loader loader(mach);
+
+    loader.loadAndRun(prog, address);
+
+    std::ofstream outfile;
+    outfile.open(programm_out_filename, std::ofstream::out | std::ofstream::trunc);
+
+    if (outfile.is_open()) {
+
+        outfile << loader.getJson();
+        outfile.close();
+
+    } else {
+
+        std::cout << "Error opening output file" << std::endl;
+
+    }
+
+    for (auto elem : loader.getOutput()) {
+
+        std::cout << elem << std::endl;
+
+    }
 
     return 0;
 }

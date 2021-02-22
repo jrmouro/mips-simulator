@@ -23,6 +23,44 @@
 class Programm {
 public:
 
+    Programm(std::vector<UINT32> code) : code(code) {    }
+
+    Programm(std::vector<std::string> code) : code(read(code)) {    }
+
+    Programm(std::string filename) : code(read(filename)) {    }
+
+    Programm(const Programm& other) : code(other.code) {    }
+
+    virtual ~Programm() {    }
+
+    static std::vector<UINT32> read(std::vector<std::string> code) {
+
+        std::vector<UINT32> ret;
+
+        for (auto elem : code) {
+
+            for (unsigned i = 0; i < elem.length(); ++i) {
+
+                if (elem.at(i) != '0' && elem.at(i) != '1') {
+
+                    throw std::invalid_argument("invalid binary code");
+                    
+                    return ret;
+
+                }
+
+            }
+
+            UINT32 c = (UINT32) std::stoi(elem, 0, 2);
+
+            ret.push_back(c);
+
+        }
+
+        return ret;
+
+    }
+
     static std::vector<UINT32> read(std::string filename) {
 
         std::vector<UINT32> code;
@@ -59,11 +97,23 @@ public:
 
             readFile.close();
 
+        } else {
+            
+            throw std::invalid_argument("invalid programm filename");
+            
         }
 
         return code;
 
     }
+
+    std::vector<UINT32> getCode() const {
+        return code;
+    }
+
+private:
+
+    std::vector<UINT32> code;
 
 };
 

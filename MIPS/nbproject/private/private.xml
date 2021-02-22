@@ -7,11 +7,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/ronaldo/Documentos/MIPS/main.cpp</file>
-            <file>file:/home/ronaldo/Documentos/MIPS/Register.h</file>
-            <file>file:/home/ronaldo/Documentos/MIPS/Machine.h</file>
-            <file>file:/home/ronaldo/Documentos/MIPS/Machine.cpp</file>
-            <file>file:/home/ronaldo/Documentos/MIPS/Ctrl.h</file>
+            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/Machine.cpp</file>
+            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/Programm.h</file>
+            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/out.txt</file>
+            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/Loader.h</file>
+            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/main.cpp</file>
+            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/Memory.cpp</file>
+            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/Memory.h</file>
+            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/Ctrl.h</file>
+            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/Machine.h</file>
         </group>
     </open-files>
 </project-private>

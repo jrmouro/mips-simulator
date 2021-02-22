@@ -25,10 +25,13 @@
 #include <functional>
 
 class State;
+class Programm;
 class Machine : public ToJson, public Resettable{
 public:
     
     Machine(UINT32 mem_size);
+    
+    Machine(const Machine& other);
     
     virtual ~Machine();
     
@@ -45,15 +48,18 @@ public:
         this->regs.write(29, this->mem.getSize() - 1);  // $sp      
     }
     
-    void clock(
-        const std::function<void(const Machine&)> fun = 
-            [](const Machine& mach){ std::cout << mach << std::endl; });
+    bool clock(
+        /*const std::function<void(const Machine&)> fun = 
+            [](const Machine& mach){ std::cout << mach << std::endl; }*/);
         
+    void loadProgramm(UINT32 address, const Programm &prog);
+            
     void loadProgram(
         UINT32 address, 
         std::string filename,
         const std::function<void(const Machine&)> fun = 
-            [](const Machine& mach){ std::cout << mach << std::endl; });
+            [](const Machine& mach){ std::cout << mach << std::endl; }
+            );
     
     //state0: Busca da Instrução
     void ir_recebe_mem_pc();    

@@ -2,42 +2,19 @@ extends layout
 
 block content
   h1= title
-  div(class="wrapper")
-    div(class="labeled-field fgrow-2 m-2")
-      label(for="code") Código de Máquina MIPS:
-      textarea#code(name="code", cols="33", rows="40")
-    div(class="buttons fgrow-1 m-2")
-      button Run
-      button Step
-      button Reset
-    div(class="labeled-field fgrow-2 m-2")
-      label(for="") Registradores:
-      include tabelaRegistradores.pug
-    div(class="labeled-field fgrow-2 m-2")
-      label(for="") Sinais de Controle:
-      include sinaisControle.pug
-    div(class="others fgrow-2 m-2")
-      include outrosRegistradores.pug
-    div(class="labeled-field fgrow-2 m-2")
-      label(for="") Memória:
-      textarea(name="memoria", cols="33", rows="40", readOnly)
-        | 00000000: 04 00 08 20
-        | 00000008: 40 40 08 00
-        | 00000004: 20 40 08 01
-        | 0000000c: 00 00 00 00
-        | 00000010: 00 00 00 00
-        | 00000014: 00 00 00 00
-        | 00000018: 00 00 00 00
-        | 0000001c: 00 00 00 00
-        | 00000020: 00 00 00 00
-        | 00000024: 00 00 00 00
-        | 00000028: 00 00 00 00
-        | 0000002c: 00 00 00 00
-        | 00000030: 00 00 00 00
-        | 00000034: 00 00 00 00
-        | 00000038: 00 00 00 00
-        | 0000003c: 00 00 00 00
+  p Welcome to #{title}
+  p Enter programmm
+  form(action="/programm_submit" method="POST")
+    textarea(name="code" rows=3 cols=33).form-control.
+      100000000010000000000000000100
+      000001000010000100000000100000
+      000000000010000100000001000000
+    p Machine Mem size(words)
+    input(type="number" value=16)
+    p
+    input(type="submit" name="btn" value="exec")
+    input(type="submit" name="btn" value="clock")
+    input(type="submit" name="btn" value="reset") 
 
-
-        
-        
+  if(frame.state)
+    p State: #{frame.state.description}
