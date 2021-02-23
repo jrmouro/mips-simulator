@@ -15,23 +15,32 @@
 #define PROGRAMM_H
 
 #include "Memory.h"
+#include "ToJson.h"
 #include <string>
 #include <vector>
 #include <fstream>
 #include <cstring>
 
-class Programm {
+class Programm : public ToJson {
 public:
 
-    Programm(std::vector<UINT32> code) : code(code) {    }
+    Programm() {
+    }
 
-    Programm(std::vector<std::string> code) : code(read(code)) {    }
+    Programm(std::vector<UINT32> code) : code(code) {
+    }
 
-    Programm(std::string filename) : code(read(filename)) {    }
+    Programm(std::vector<std::string> code) : code(read(code)) {
+    }
 
-    Programm(const Programm& other) : code(other.code) {    }
+    Programm(std::string filename) : code(read(filename)) {
+    }
 
-    virtual ~Programm() {    }
+    Programm(const Programm& other) : code(other.code) {
+    }
+
+    virtual ~Programm() {
+    }
 
     static std::vector<UINT32> read(std::vector<std::string> code) {
 
@@ -43,8 +52,8 @@ public:
 
                 if (elem.at(i) != '0' && elem.at(i) != '1') {
 
-                    throw std::invalid_argument("invalid binary code");
-                    
+                    throw std::invalid_argument("invalid binary code: " + elem);
+
                     return ret;
 
                 }
@@ -73,7 +82,7 @@ public:
 
             while (getline(readFile, linecode)) {
 
-                char chars[] = " \n";
+                char chars[] = " \n\r";
 
                 for (unsigned int i = 0; i < std::strlen(chars); ++i) {
                     linecode.erase(std::remove(linecode.begin(), linecode.end(), chars[i]), linecode.end());
@@ -83,7 +92,7 @@ public:
 
                     if (linecode.at(i) != '0' && linecode.at(i) != '1') {
 
-                        throw std::invalid_argument("invalid binary code");
+                        throw std::invalid_argument("invalid binary code: " + linecode);
 
                     }
 
@@ -98,9 +107,9 @@ public:
             readFile.close();
 
         } else {
-            
-            throw std::invalid_argument("invalid programm filename");
-            
+
+            throw std::invalid_argument("invalid programm filename: " + filename);
+
         }
 
         return code;
@@ -109,6 +118,33 @@ public:
 
     std::vector<UINT32> getCode() const {
         return code;
+    }
+
+    virtual std::string getJson() const {
+
+        std::stringbuf buffer;
+        std::ostream os(&buffer);
+
+        os << "{ \"code\":[";
+
+        if (this->code.size()) {
+
+            int i = 0;
+            for (; i < this->code.size() - 1; i++) {
+
+                os << "\"" << std::bitset<32>(this->code[i]) << "\", ";
+
+            }
+
+            os << "\"" << std::bitset<32>(this->code[i]) << "\"";
+
+        }
+
+        os << "] }";
+
+
+        return buffer.str();
+
     }
 
 private:

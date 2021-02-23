@@ -168,6 +168,8 @@ private:
     IR ir;
     State *state = 0;
     
+    Programm *prog;
+    
 };
 
 #endif /* MACHINE_H */

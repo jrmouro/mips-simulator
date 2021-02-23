@@ -40,8 +40,9 @@ void Memory::write(UINT32 address, UINT32 value) {
 
         if (address + 1 < this->size)
             this->self[address + i] = (BYTE) b;
-        else
-            throw std::invalid_argument("invalid memory adress");
+        else{
+            throw std::invalid_argument("invalid memory adress: " + std::to_string(address));
+        }
     }
 
 }
@@ -59,7 +60,7 @@ UINT32 Memory::read(UINT32 address) const {
 
         } else {
 
-            throw std::invalid_argument("invalid memory adress");
+            throw std::invalid_argument("invalid memory adress: " + std::to_string(address));
 
         }
 

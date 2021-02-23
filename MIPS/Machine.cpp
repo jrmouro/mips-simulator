@@ -18,7 +18,7 @@
 #include "State0.h"
 #include "Programm.h"
 
-Machine::Machine(UINT32 mem_size) : mem(mem_size * 4) {}
+Machine::Machine(UINT32 mem_size) : mem(mem_size * 4), prog(new Programm()) {}
 
 Machine::Machine(const Machine& other) :
         A(other.A), 
@@ -32,11 +32,15 @@ Machine::Machine(const Machine& other) :
         mem(other.mem), 
         regs(other.regs), 
         ir(other.ir), 
-        state(other.state) {    }
+        state(other.state),
+        prog(new Programm(*other.prog)){    }
 
 Machine::~Machine() {
     if (this->state)
         delete this->state;
+    
+    if(this->prog)
+        delete this->prog;
 }
 
 bool Machine::clock(/*const std::function<void(const Machine&)> fun*/) {
@@ -52,12 +56,13 @@ bool Machine::clock(/*const std::function<void(const Machine&)> fun*/) {
         } else {
 
             this->state = new State0();
+            this->set_ctrl_state_0();
+            this->ir_recebe_mem_pc();
 
         }
 
         if ((*this->state) == State0()) {
-            this->set_ctrl_state_0();
-            this->ir_recebe_mem_pc();
+            
             this->inst_count--;
         }
         
@@ -76,6 +81,11 @@ bool Machine::clock(/*const std::function<void(const Machine&)> fun*/) {
 void Machine::loadProgramm(UINT32 address, const Programm &prog){
     
     std::vector<UINT32> code = prog.getCode();
+    
+    if(this->prog)
+        delete this->prog;
+    
+    this->prog = new Programm(prog);
 
     //this->reset();
 
@@ -96,8 +106,11 @@ void Machine::loadProgram(
 ) {
     
     std::vector<UINT32> code = Programm::read(filename);
-
-    //this->reset();
+    
+    if(this->prog)
+        delete this->prog;
+    
+    this->prog = new Programm(code);
 
     this->PC.setValue(address);
     this->inst_count = code.size();
@@ -106,10 +119,6 @@ void Machine::loadProgram(
     for (int i = 0; i < code.size(); i++) {
         this->mem.write(address + (i * 4), code[i]);
     }
-
-//    while (this->inst_count) {
-//        this->clock(fun);
-//    }
 
 }
 
@@ -253,6 +262,18 @@ std::string Machine::getJson() const {
         std::ostream os(&buffer);
         
         os << "{ ";
+        
+        if(this->prog){
+            
+            os << "\"program\":" << this->prog->getJson() << ", ";
+            
+        } else {
+            
+            os << "\"program\":null, ";
+            
+        }
+        
+        
         
         if(this->state){
             

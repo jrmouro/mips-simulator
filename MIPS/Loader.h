@@ -26,14 +26,11 @@
 class Loader : public ToJson {
 public:
 
-    Loader() : mach(Machine(16)) {
-    }
+    Loader() : mach(Machine(16)) {    }
 
-    Loader(const Machine& mach) : mach(mach) {
-    }
+    Loader(const Machine& mach) : mach(mach) {    }
 
-    Loader(const Loader& other) : mach(other.mach), output(other.output) {
-    }
+    Loader(const Loader& other) : mach(other.mach), output(other.output) {    }
 
     virtual ~Loader() {
     }
