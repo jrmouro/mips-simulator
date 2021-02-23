@@ -9,7 +9,9 @@ const { v4: uuidv4 } = require('uuid');
 var indexRouter = require('./routes/index');
 var index2Router = require('./routes/index2');
 var usersRouter = require('./routes/users');
-var programm_submit = require('./routes/programm_submit');
+var execRouter = require('./routes/exec');
+var clockRouter = require('./routes/clock');
+var resetRouter = require('./routes/reset');
 
 var app = express();
 
@@ -40,7 +42,9 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/index2', index2Router);
 app.use('/users', usersRouter);
-app.use('/programm_submit', programm_submit);
+app.use('/exec', execRouter);
+app.use('/clock', clockRouter);
+app.use('/reset', resetRouter);
 
 
 

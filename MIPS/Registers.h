@@ -29,7 +29,7 @@ public:
         if (address < 32) {
             this->regs[address].setValue(value);
         } else {
-            throw std::invalid_argument("invalid register adress");
+            throw std::invalid_argument("invalid memory adress: " + std::to_string(address));
         }
     }
 
@@ -37,7 +37,7 @@ public:
         if (address < 32) {
             return this->regs[address].getValue();
         } else {
-            throw std::invalid_argument("invalid register adress");
+            throw std::invalid_argument("invalid memory adress: " + std::to_string(address));
         }
         return 0;
     }

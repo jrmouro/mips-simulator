@@ -26,7 +26,7 @@ using namespace std;
  */
 int main(int argc, char** argv) {
 
-    std::string programm_filename = "programm_empty.txt";
+    std::string programm_filename = "programm.txt";
     std::string programm_out_filename = "out.json";
     unsigned mem_size = 16, address = 0;
 
@@ -59,7 +59,8 @@ int main(int argc, char** argv) {
 
     } else {
 
-        std::cout << "Error opening output file" << std::endl;
+        std::cerr << "Error opening output file" << std::endl;    
+        return 1;
 
     }
 
@@ -68,6 +69,10 @@ int main(int argc, char** argv) {
         std::cout << elem << std::endl;
 
     }
+    
+//    Programm prog;
+//    
+//    std::cout << prog.getJson();
 
     return 0;
 }

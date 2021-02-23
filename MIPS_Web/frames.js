@@ -1,93 +1,77 @@
 var fs = require('fs');
-const { spawn, spawnSync } = require('child_process');
+const { spawn } = require('child_process');
 
-function frames(id) {
+async function getMipsFrames(id, mem_words, code) {
 
-    this.vector = [];
-    this.id = id;
-    this.clock = 0;
+    return new Promise(
 
-    this.get_current_frame = function () {
+        (resolve, reject) => {
 
-        return this.vector[this.clock];
+            fs.writeFile(
+                id + ".txt",
+                code,
+                function (err) {
 
-    }
-
-    this.get_next_frame = function () {
-
-        if (this.clock < this.vector.length - 1)
-            this.clock++;
-
-        return this.vector[this.clock];
-
-    }
-
-    this.get_first_frame = function () {
-
-        this.clock = 0;
-
-        return this.vector[this.clock];
-
-    }
-
-    this.get_last_frame = function () {
-
-        this.clock = this.vector.length - 1;
-
-        return this.vector[this.clock];
-
-    }
-
-    var self = this;
-
-    this.exec = function (mem_size, code) {
-
-        fs.writeFile(
-            self.id + ".txt",
-            code,
-            function (err) {
-                if (err) return console.log(err);
-            }
-        );
-
-        var mips = spawn('../MIPS/dist/Debug/GNU-Linux/mips', [self.id + ".txt", self.id + ".json", "" + mem_size])
-
-        mips.stdout.on('data', (data) => {
-            console.log(`stdout: ${data}`);
-        });
-
-        mips.stderr.on('data', (data) => {
-            console.error(`stderr: ${data}`);
-        });
-
-        mips.on('close', (code) => {
-            console.log(`child process exited with code ${code}`);
-            if (code == 0) {
-                fs.readFile(
-                    self.id + ".json",
-                    'utf8',
-                    (err, jsonString) => {
-                        if (err) {
-                            console.log("Error reading file from disk:", err);
-                            return;
-                        }
-                        try {
-                            self.vector = JSON.parse(jsonString);
-                        }
-                        catch (err) {
-                            console.log('Error parsing JSON string:', err)
-                        }
+                    if (err) {
+                        reject(err);
+                        return;
                     }
-                );
-            }
-        });
 
-        this.clock = 0;
+                    var mips = spawn('../MIPS/dist/Debug/GNU-Linux/mips', [id + ".txt", id + ".json", "" + mem_words])
 
-    }
+                    mips.stdout.on('data', (data) => {
+                        console.log(`stdout: ${data}`);
+                    });
 
-    this.exec(16, "");
+                    mips.stderr.on('data', (data) => {
+                        console.error(`stderr: ${data}`);
+                    });
+
+                    mips.on('close', (exit_code) => {
+                        console.log(`child process exited with code ${exit_code}`);
+                        if (exit_code == 0) {
+                            fs.readFile(
+                                id + ".json",
+                                'utf8',
+                                (err, jsonString) => {
+                                    if (err) {
+                                        reject(err);
+                                        return;
+                                    }
+                                    try {
+                                        var frames = { 
+                                            self: JSON.parse(jsonString), 
+                                            id: id, 
+                                            code: code, 
+                                            current: 0,
+                                            mem_words: mem_words
+                                        };
+                                        resolve(frames);
+                                    }
+                                    catch (err) {
+                                        reject(err);
+                                        return;
+                                    }
+                                }
+                            );
+                        } else {
+
+                            reject(new Error("child process mips exited with code " + exit_code));
+                            return;
+
+                        }
+                    });
+
+                }
+            );
+
+            this.clock = 0;
+
+        }
+
+    );
 
 }
 
-module.exports = frames;
+module.exports = getMipsFrames;
+
