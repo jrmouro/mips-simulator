@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  p Enter programmm
+  form(action="/exec" method="POST")
+    textarea(name="code" rows=3 cols=33).form-control.
+      #{code}
+    p Machine Mem size(words)
+    input(type="number" name="inpt_mem_size" value=mem_words)
+    p
+    input(type="submit" name="btn_exec" value="exec")
+    input(type="submit" name="btn_clock" formaction="/clock" value="clock")
+    input(type="submit" name="btn_reset" formaction="/reset" value="reset") 
+
+  if(frame.state)
+    p State: #{frame.state.description}
+  else
+    p State: reset
+  p Clock: #{current}
+  p PC: #{frame.PC.value}
+  p IR: #{frame.IR.value}
+  p Mem:
+  each w in frame.mem.self
+    p #{w}

@@ -129,7 +129,7 @@ public:
 
         if (this->code.size()) {
 
-            int i = 0;
+            unsigned int i = 0;
             for (; i < this->code.size() - 1; i++) {
 
                 os << "\"" << std::bitset<32>(this->code[i]) << "\", ";

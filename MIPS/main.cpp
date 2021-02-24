@@ -24,19 +24,25 @@ using namespace std;
 /*
  * 
  */
-int main(int argc, char** argv) {
+
+int main(int argc, char **argv)
+{
 
     std::string programm_filename = "programm.txt";
     std::string programm_out_filename = "out.json";
     unsigned mem_size = 16, address = 0;
 
-    if (argc > 1) {
+    if (argc > 1)
+    {
         programm_filename = argv[1];
-        if (argc > 2) {
+        if (argc > 2)
+        {
             programm_out_filename = argv[2];
-            if (argc > 3) {
+            if (argc > 3)
+            {
                 mem_size = std::stoi(argv[3]);
-                if (argc > 4) {
+                if (argc > 4)
+                {
                     address = std::stoi(argv[4]);
                 }
             }
@@ -52,28 +58,28 @@ int main(int argc, char** argv) {
     std::ofstream outfile;
     outfile.open(programm_out_filename, std::ofstream::out | std::ofstream::trunc);
 
-    if (outfile.is_open()) {
+    if (outfile.is_open())
+    {
 
         outfile << loader.getJson();
         outfile.close();
+    }
+    else
+    {
 
-    } else {
-
-        std::cerr << "Error opening output file" << std::endl;    
+        std::cerr << "Error opening output file" << std::endl;
         return 1;
-
     }
 
-    for (auto elem : loader.getOutput()) {
+    for (auto elem : loader.getOutput())
+    {
 
         std::cout << elem << std::endl;
-
     }
-    
-//    Programm prog;
-//    
-//    std::cout << prog.getJson();
+
+    //    Programm prog;
+    //
+    //    std::cout << prog.getJson();
 
     return 0;
 }
-

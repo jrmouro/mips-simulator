@@ -1,26 +1,31 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  p Enter programmm
-  form(action="/exec" method="POST")
-    textarea(name="code" rows=3 cols=33).form-control.
-      #{code}
-    p Machine Mem size(words)
-    input(type="number" name="inpt_mem_size" value=mem_words)
-    p
-    input(type="submit" name="btn_exec" value="exec")
-    input(type="submit" name="btn_clock" formaction="/clock" value="clock")
-    input(type="submit" name="btn_reset" formaction="/reset" value="reset") 
-
-  if(frame.state)
-    p State: #{frame.state.description}
-  else
-    p State: reset
-  p Clock: #{current}
-  p PC: #{frame.PC.value}
-  p IR: #{frame.IR.value}
-  p Mem:
-  each w in frame.mem.self
-    p #{w}
+  div(class="header")
+    h1 MIPS Simulator
+  div(class="wrapper")
+    form(action="/exec", method="POST" class="fgrow-2") 
+      div(class="labeled-field fgrow-2 m-2")
+        label(for="inpt_mem_size") Tamanho da memória (palavras):
+        input(type="number" name="inpt_mem_size" value=mem_words)
+        label(for="code") Código de Máquina MIPS:
+        textarea(name="code", cols="33", rows="40") #{code}
+      div(class="buttons fgrow-1 m-2")
+        input(type="submit" name="btn_exec" value="exec")
+        input(type="submit" name="btn_clock" formaction="/clock" value="clock")
+        input(type="submit" name="btn_reset" formaction="/reset" value="reset")
+    div(class="fgrow-3")
+      div(class="labeled-field fgrow-2 m-2")
+        label(for="") Registradores:
+        include tabelaRegistradores.pug
+      div(class="labeled-field fgrow-2 m-2")
+        label(for="") Sinais de Controle:
+        include sinaisControle.pug
+    div(class="others fgrow-2 m-2")
+      include outrosRegistradores.pug
+    div(class="labeled-field fgrow-2 m-2")
+      label(for="") Memória:
+      - var mem_string = ""
+      each adress in frame.mem.self
+        - mem_string += adress + "\n"
+      textarea(name="memoria", cols="22", rows="40", readOnly) #{mem_string}

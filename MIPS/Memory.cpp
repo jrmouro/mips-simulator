@@ -21,7 +21,7 @@ Memory::Memory(UINT32 size) : size(size) {
 
 Memory::Memory(const Memory& orig) : size(orig.size) {
     this->self = new BYTE[orig.size];
-    for (int i = 0; i < orig.size; i++)
+    for (unsigned int i = 0; i < orig.size; i++)
         this->self[i] = orig.self[i];
 }
 
@@ -71,7 +71,7 @@ UINT32 Memory::read(UINT32 address) const {
 }
 
 void Memory::reset() {
-    for (int i = 0; i < this->size; i++)
+    for (unsigned int i = 0; i < this->size; i++)
         this->self[i] = 0;
 }
 
@@ -82,7 +82,7 @@ std::string Memory::getJson() const {
 
     os << "{ \"size\":" << this->size << ", \"self\":[";
 
-    int i = 0;
+    unsigned int i = 0;
     for (; i < this->size - 4; i += 4) {
         os << "\"" << std::setfill('0') << std::setw(8) << std::hex << i << ": ";
         os << std::setw(2) << (unsigned) this->self[i] << " ";
@@ -105,7 +105,7 @@ std::string Memory::getJson() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Memory& obj) {
-    for (int i = 0; i < obj.size; i += 4) {
+    for (unsigned int i = 0; i < obj.size; i += 4) {
         os << std::setfill('0') << std::setw(8) << std::hex << i << ": ";
         os << std::setw(2) << (unsigned) obj.self[i] << " ";
         os << std::setw(2) << (unsigned) obj.self[i + 1] << " ";

@@ -44,7 +44,7 @@ public:
 
         if (this->output_json.size()) {
 
-            int i = 0;
+            unsigned int i = 0;
 
             for (; i < this->output_json.size() - 1; i++)
                 os << this->output_json[i] << ", ";

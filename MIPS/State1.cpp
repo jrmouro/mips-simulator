@@ -16,6 +16,7 @@
 #include "State6.h"
 #include "State8.h"
 #include "State9.h"
+#include "State10.h"
 #include "IR.h"
 #include "StateException.h"
 #include "Machine.h"
@@ -39,7 +40,7 @@ State* State1::getNext(Machine *machine)const{
         case IR::OPCODE::R_Type:
             return new State6();
         case IR::OPCODE::I_Type_ADDI:
-            return new State6();
+            return new State10();
         case IR::OPCODE::I_Type_LW:
             return new State2();
         case IR::OPCODE::I_Type_SW:

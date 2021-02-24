@@ -123,6 +123,11 @@ public:
         this->ctrl.set_ALUSrcB(0);
         this->ctrl.set_ALUOp(2);
     }
+    void set_ctrl_state_10(){
+        this->ctrl.set_ALUSrcA(1);
+        this->ctrl.set_ALUSrcB(2);
+        this->ctrl.set_ALUOp(2);
+    }
     
     //state7: Conclusão de Tipo R    
     void completion_TypeR();

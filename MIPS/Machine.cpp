@@ -61,7 +61,7 @@ bool Machine::clock(/*const std::function<void(const Machine&)> fun*/) {
 
         }
 
-        if ((*this->state) == State0()) {
+        if ((*this->state) == State0() && this->clock_count > 0) {
             
             this->inst_count--;
         }
@@ -93,7 +93,7 @@ void Machine::loadProgramm(UINT32 address, const Programm &prog){
     this->inst_count = code.size();
     
     
-    for (int i = 0; i < code.size(); i++) {
+    for (unsigned int i = 0; i < code.size(); i++) {
         this->mem.write(address + (i * 4), code[i]);
     }
 }
@@ -116,7 +116,7 @@ void Machine::loadProgram(
     this->inst_count = code.size();
     
     
-    for (int i = 0; i < code.size(); i++) {
+    for (unsigned int i = 0; i < code.size(); i++) {
         this->mem.write(address + (i * 4), code[i]);
     }
 

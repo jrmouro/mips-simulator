@@ -72,6 +72,7 @@ public:
         os << "   EPCWrite: " << std::bitset<1>(obj.get_EPCWrite()) << std::endl;
         os << "   PCSource: " << std::bitset<2>(obj.get_PCSource()) << std::endl;
         os << "      ALUOp: " << std::bitset<2>(obj.get_ALUOp()) << std::endl;
+        auto alusrcb = std::bitset<2>(obj.get_ALUSrcB());
         os << "    ALUSrcB: " << std::bitset<2>(obj.get_ALUSrcB()) << std::endl;
         os << "    ALUSrcA: " << std::bitset<1>(obj.get_ALUSrcA()) << std::endl;
         os << "   RegWrite: " << std::bitset<1>(obj.get_RegWrite()) << std::endl;
@@ -228,7 +229,7 @@ private:
     static unsigned mask_0_bits(unsigned bits, unsigned bit_index, unsigned bit_number) {
 
         unsigned max1 = std::max((unsigned) 0, 32 - bit_number);
-        unsigned max2 = std::max((unsigned) 0, 32 - bit_index);
+        unsigned max2 = std::max((unsigned) 0, 31 - bit_index);
         return (bits << max1) >> max2;
 
     }
@@ -237,7 +238,7 @@ private:
 
         return value & mask_0_1(bit_index, bit_number);
 
-    }
+    } 
 
     static unsigned set_bit_1(unsigned value, unsigned bit_index, unsigned bit_number) {
 
@@ -247,14 +248,15 @@ private:
 
     static unsigned set_bits(unsigned value, unsigned bits, unsigned bit_index, unsigned bit_number) {
 
-        return value | mask_0_bits(bits, bit_index, bit_number);
+        unsigned mask = mask_0_bits(bits, bit_index, bit_number);
+        return value | mask;
 
     }
 
     static unsigned get_bits(unsigned value, unsigned bit_index, unsigned bit_number) {
 
         unsigned max1 = std::max((unsigned) 0, 32 - bit_number);
-        unsigned max2 = std::max((unsigned) 0, 32 - bit_index);
+        unsigned max2 = std::max((unsigned) 0, 31 - bit_index);
         return (value << max2) >> max1;
 
     }
