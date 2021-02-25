@@ -15,16 +15,19 @@
 #include "State0.h"
 #include "Machine.h"
 
-State5::State5():State("State 5: Acesso à memória(escrita)") {}
+State5::State5() : State("State 5: Acesso à memória(escrita)") {}
 
-State5::State5(const State5& orig):State(orig){}
+State5::State5(const State5 &orig) : State(orig) {}
+
+State5::State5(Machine *mach) : State("State 5: Acesso à memória(escrita)")
+{
+    mach->set_ctrl_state_5();
+    mach->mem_aluout_recebe_b();
+}
 
 State5::~State5() {}
 
-State* State5::getNext(Machine *machine)const{
-    machine->set_ctrl_state_5();
-    machine->mem_aluout_recebe_b();    
-    return new State0();
+State *State5::getNext(Machine *machine) const
+{
+    return new State0(machine);
 }
-
-

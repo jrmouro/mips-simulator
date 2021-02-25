@@ -21,56 +21,63 @@
 #include <fstream>
 #include <cstring>
 
-class Programm : public ToJson {
+class Programm : public ToJson
+{
 public:
-
-    Programm() {
+    Programm()
+    {
     }
 
-    Programm(std::vector<UINT32> code) : code(code) {
+    Programm(std::vector<UINT32> code) : code(code)
+    {
     }
 
-    Programm(std::vector<std::string> code) : code(read(code)) {
+    Programm(std::vector<std::string> code) : code(read(code))
+    {
     }
 
-    Programm(std::string filename) : code(read(filename)) {
+    Programm(std::string filename) : code(read(filename))
+    {
     }
 
-    Programm(const Programm& other) : code(other.code) {
+    Programm(const Programm &other) : code(other.code)
+    {
     }
 
-    virtual ~Programm() {
+    virtual ~Programm()
+    {
     }
 
-    static std::vector<UINT32> read(std::vector<std::string> code) {
+    static std::vector<UINT32> read(std::vector<std::string> code)
+    {
 
         std::vector<UINT32> ret;
 
-        for (auto elem : code) {
+        for (auto elem : code)
+        {
 
-            for (unsigned i = 0; i < elem.length(); ++i) {
+            for (unsigned i = 0; i < elem.length(); ++i)
+            {
 
-                if (elem.at(i) != '0' && elem.at(i) != '1') {
+                if (elem.at(i) != '0' && elem.at(i) != '1')
+                {
 
                     throw std::invalid_argument("invalid binary code: " + elem);
 
                     return ret;
-
                 }
-
             }
 
-            UINT32 c = (UINT32) std::stoi(elem, 0, 2);
+            UINT32 c = (UINT32)std::stoi(elem, 0, 2);
 
             ret.push_back(c);
-
         }
 
         return ret;
-
     }
 
-    static std::vector<UINT32> read(std::string filename) {
+    static std::vector<UINT32> read(std::string filename)
+    {
 
         std::vector<UINT32> code;
 
@@ -78,80 +85,78 @@ public:
 
         std::ifstream readFile(filename);
 
-        if (readFile.is_open()) {
+        if (readFile.is_open())
+        {
 
-            while (getline(readFile, linecode)) {
+            while (getline(readFile, linecode))
+            {
 
                 char chars[] = " \n\r";
 
-                for (unsigned int i = 0; i < std::strlen(chars); ++i) {
+                for (unsigned int i = 0; i < std::strlen(chars); ++i)
+                {
                     linecode.erase(std::remove(linecode.begin(), linecode.end(), chars[i]), linecode.end());
                 }
 
-                for (unsigned i = 0; i < linecode.length(); ++i) {
+                for (unsigned i = 0; i < linecode.length(); ++i)
+                {
 
-                    if (linecode.at(i) != '0' && linecode.at(i) != '1') {
+                    if (linecode.at(i) != '0' && linecode.at(i) != '1')
+                    {
 
                         throw std::invalid_argument("invalid binary code: " + linecode);
-
                     }
-
                 }
 
-                UINT32 c = (UINT32) std::stoi(linecode, 0, 2);
+                UINT32 c = (UINT32)std::stoi(linecode, 0, 2);
 
                 code.push_back(c);
-
             }
 
             readFile.close();
-
-        } else {
+        }
+        else
+        {
 
             throw std::invalid_argument("invalid programm filename: " + filename);
-
         }
 
         return code;
-
     }
 
-    std::vector<UINT32> getCode() const {
+    std::vector<UINT32> getCode() const
+    {
         return code;
     }
 
-    virtual std::string getJson() const {
+    virtual std::string getJson() const
+    {
 
         std::stringbuf buffer;
         std::ostream os(&buffer);
 
         os << "{ \"code\":[";
 
-        if (this->code.size()) {
+        if (this->code.size())
+        {
 
             unsigned int i = 0;
-            for (; i < this->code.size() - 1; i++) {
+            for (; i < this->code.size() - 1; i++)
+            {
 
                 os << "\"" << std::bitset<32>(this->code[i]) << "\", ";
-
             }
 
             os << "\"" << std::bitset<32>(this->code[i]) << "\"";
-
         }
 
         os << "] }";
 
-
         return buffer.str();
-
     }
 
 private:
-
     std::vector<UINT32> code;
-
 };
 
 #endif /* PROGRAMM_H */
-

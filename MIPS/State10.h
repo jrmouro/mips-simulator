@@ -21,6 +21,7 @@ class State10 : public State
 public:
     State10();
     State10(const State10 &orig);
+    State10(Machine*);
     virtual ~State10();
     virtual State *getNext(Machine *machine) const;
 };

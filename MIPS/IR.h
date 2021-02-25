@@ -70,6 +70,7 @@ public:
     }
 
     BYTE getRD() {
+        
         return (getValue() << 16) >> 27;
     }
 

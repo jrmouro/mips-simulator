@@ -20,6 +20,7 @@ class State6 : public State{
 public:
     State6();
     State6(const State6& orig);
+    State6(Machine*);
     virtual ~State6();
     virtual State* getNext(Machine *machine)const;
 };

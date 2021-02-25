@@ -15,17 +15,19 @@
 #include "State0.h"
 #include "Machine.h"
 
-State4::State4():State("State 4: conclusão da leitura da memória") {}
+State4::State4() : State("State 4: conclusão da leitura da memória") {}
 
-State4::State4(const State4& orig):State(orig) {}
+State4::State4(const State4 &orig) : State(orig) {}
+
+State4::State4(Machine *mach) : State("State 4: conclusão da leitura da memória")
+{
+    mach->set_ctrl_state_4();
+    mach->reg_recebe_mdr();
+}
 
 State4::~State4() {}
 
-State* State4::getNext(Machine *machine)const{
-    machine->set_ctrl_state_4();
-    machine->reg_recebe_mdr();
-    return new State0();
+State *State4::getNext(Machine *machine) const
+{
+    return new State0(machine);
 }
-
-
-

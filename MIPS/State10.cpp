@@ -15,14 +15,19 @@
 #include "State7.h"
 #include "Machine.h"
 
-State10::State10():State( "State 10: Execução (Tipo I)") {}
+State10::State10() : State("State 10: Execução (Tipo I)") {}
 
-State10::State10(const State10& orig):State(orig) {}
+State10::State10(const State10 &orig) : State(orig) {}
+
+State10::State10(Machine *mach) : State("State 10: Execução (Tipo I)")
+{
+    mach->execute_alu_op();
+    mach->set_ctrl_state_10();
+}
 
 State10::~State10() {}
 
-State* State10::getNext(Machine *machine)const{    
-    machine->execute_alu_op(); 
-    machine->set_ctrl_state_10();
-    return new State7();
+State *State10::getNext(Machine *machine) const
+{
+    return new State7(machine);
 }

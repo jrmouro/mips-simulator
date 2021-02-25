@@ -123,6 +123,9 @@ public:
         this->ctrl.set_ALUSrcB(0);
         this->ctrl.set_ALUOp(2);
     }
+
+    //state10
+    void completion_TypeI();
     void set_ctrl_state_10(){
         this->ctrl.set_ALUSrcA(1);
         this->ctrl.set_ALUSrcB(2);

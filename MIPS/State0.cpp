@@ -15,15 +15,19 @@
 #include "State1.h"
 #include "Machine.h"
 
-State0::State0():State("State 0: Busca da Instrução") {}
+State0::State0() : State("State 0: Busca da Instrução") {}
 
-State0::State0(const State0& orig):State(orig) {}
+State0::State0(const State0 &orig) : State(orig) {}
+
+State0::State0(Machine *mach) : State("State 0: Busca da Instrução")
+{
+    mach->set_ctrl_state_0();
+    mach->ir_recebe_mem_pc();
+};
 
 State0::~State0() {}
 
-State* State0::getNext(Machine *machine)const{
-    machine->ir_recebe_mem_pc();
-    machine->set_ctrl_state_0();
-    return new State1();
+State *State0::getNext(Machine *machine) const
+{
+    return new State1(machine);
 }
-

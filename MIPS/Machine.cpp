@@ -54,11 +54,7 @@ bool Machine::clock(/*const std::function<void(const Machine&)> fun*/) {
             this->state = aux;
 
         } else {
-
-            this->state = new State0();
-            this->set_ctrl_state_0();
-            this->ir_recebe_mem_pc();
-
+            this->state = new State0(this);
         }
 
         if ((*this->state) == State0() && this->clock_count > 0) {
@@ -166,7 +162,8 @@ void Machine::execute_alu_op() {
 
     if (this->ir.getOP() == IR::OPCODE::I_Type_ADDI) {
 
-        this->aluout.setValue((int) this->A.getValue() + (int) this->ir.getImmediateExt());
+        int i = (int) this->ir.getImmediateExt();
+        this->aluout.setValue((int) this->A.getValue() + i);
 
     } else {
 
@@ -206,6 +203,10 @@ void Machine::execute_alu_op() {
 }
 
 void Machine::completion_TypeR() {
+    this->regs.write(this->ir.getRD(), this->aluout.getValue());
+}
+
+void Machine::completion_TypeI() {
     this->regs.write(this->ir.getRT(), this->aluout.getValue());
 }
 

@@ -14,16 +14,29 @@
 #include "State7.h"
 #include "State0.h"
 #include "Machine.h"
+#include "IR.h"
 
 State7::State7():State("State 7: Conclusão de Tipo R") {}
 
 State7::State7(const State7& orig):State(orig){}
 
+State7::State7(Machine *mach):State("State 7: Conclusão de Tipo R"){
+    mach->set_ctrl_state_7();
+    switch (mach->getOp())
+    {
+    case IR::OPCODE::I_Type_ADDI:
+        mach->completion_TypeI();
+        break;
+    case IR::OPCODE::R_Type:
+        mach->completion_TypeR();
+    default:
+        break;
+    }
+}
+
 State7::~State7() {}
 
-State* State7::getNext(Machine *machine)const{    
-    machine->set_ctrl_state_7();
-    machine->completion_TypeR();    
-    return new State0();
+State* State7::getNext(Machine *machine)const{     
+    return new State0(machine);
 }
 
