@@ -16,6 +16,7 @@
       <itemPath>State.h</itemPath>
       <itemPath>State0.h</itemPath>
       <itemPath>State1.h</itemPath>
+      <itemPath>State10.h</itemPath>
       <itemPath>State2.h</itemPath>
       <itemPath>State3.h</itemPath>
       <itemPath>State4.h</itemPath>
@@ -37,6 +38,7 @@
       <itemPath>State.cpp</itemPath>
       <itemPath>State0.cpp</itemPath>
       <itemPath>State1.cpp</itemPath>
+      <itemPath>State10.cpp</itemPath>
       <itemPath>State2.cpp</itemPath>
       <itemPath>State3.cpp</itemPath>
       <itemPath>State4.cpp</itemPath>
@@ -119,6 +121,10 @@
       <item path="State1.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="State1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State10.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State10.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="State2.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -223,6 +229,10 @@
       <item path="State1.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="State1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="State10.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State10.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="State2.cpp" ex="false" tool="1" flavor2="0">
       </item>

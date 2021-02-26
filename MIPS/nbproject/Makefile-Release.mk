@@ -42,6 +42,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/State.o \
 	${OBJECTDIR}/State0.o \
 	${OBJECTDIR}/State1.o \
+	${OBJECTDIR}/State10.o \
 	${OBJECTDIR}/State2.o \
 	${OBJECTDIR}/State3.o \
 	${OBJECTDIR}/State4.o \
@@ -112,6 +113,11 @@ ${OBJECTDIR}/State1.o: State1.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/State1.o State1.cpp
+
+${OBJECTDIR}/State10.o: State10.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/State10.o State10.cpp
 
 ${OBJECTDIR}/State2.o: State2.cpp
 	${MKDIR} -p ${OBJECTDIR}

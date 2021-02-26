@@ -10,6 +10,8 @@ block content
         input(type="number" name="inpt_mem_size" value=mem_words)
         label(for="code") Código de Máquina MIPS:
         textarea(name="code", cols="33", rows="40") #{code}
+        label(for="input-file") Carregar arquivo: 
+        input(type="file" name="input-file")
       div(class="buttons fgrow-1 m-2")
         input(type="submit" name="btn_exec" value="exec")
         input(type="submit" name="btn_clock" formaction="/clock" value="clock")

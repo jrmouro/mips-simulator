@@ -47,7 +47,7 @@ router.post('/', function (req, res, next) {
 
     }
 
-    var current = req.app.frames_session[req.session.frames_id].current++;
+    var current = req.app.frames_session[req.session.frames_id].current+1;
     if (current < req.app.frames_session[req.session.frames_id].self.length) {
       req.app.frames_session[req.session.frames_id].current = current;
     }else{

@@ -188,7 +188,7 @@ void Machine::execute_alu_op() {
                     this->aluout.setValue(0);
                 break;
             case IR::SLL:
-                this->aluout.setValue(this->A.getValue() << this->B.getValue());
+                this->aluout.setValue(this->B.getValue() << this->ir.getShamt());
                 break;
             case IR::SRL:
                 this->aluout.setValue(this->A.getValue() >> this->B.getValue());
