@@ -16,6 +16,7 @@ router.post('/', function (req, res, next) {
     }
 
     var mem_size = req.body.inpt_mem_size;
+    var code = req.body.code;
 
     getMipsframes(req.session.frames_id, mem_size, "")
       .then((frames) => {
@@ -27,7 +28,7 @@ router.post('/', function (req, res, next) {
           {
             title: 'Express',
             frame: frames.self[current],
-            code: frames.code,
+            code: code,
             current: current,
             length: frames.self.length,
             mem_words: frames.mem_words
