@@ -23,8 +23,8 @@ State2::State2(const State2 &orig) : State(orig) {}
 
 State2::State2(Machine *mach) : State("State 2: Cálculo do endereço de memória")
 {
-    void address_memory_calc();
-    void set_ctrl_state_2();
+    mach->address_memory_calc();
+    mach->set_ctrl_state_2();
 }
 
 State2::~State2() {}
@@ -39,5 +39,6 @@ State *State2::getNext(Machine *machine) const
         return new State5(machine);
     }
 
-    return new StateException();
+    return new StateException("opcode does not found");
+    
 }

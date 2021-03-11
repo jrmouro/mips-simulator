@@ -12,109 +12,147 @@
  */
 
 #include <iostream>
+#include <limits>
 #include "Machine.h"
-#include "Programm.h"
+#include "Program.h"
 #include "State.h"
+#include "StateException.h"
 #include "State0.h"
-#include "Programm.h"
+#include "Program.h"
 
-Machine::Machine(UINT32 mem_size) : mem(mem_size * 4), prog(new Programm()) {}
+Machine::Machine(UINT32 mem_size) : mem(mem_size * 4), prog(new Program()) {
+}
 
 Machine::Machine(const Machine& other) :
-        A(other.A), 
-        B(other.B), 
-        PC(other.PC), 
-        MDR(other.MDR), 
-        aluout(other.aluout), 
-        inst_count(other.inst_count), 
-        clock_count(other.clock_count), 
-        ctrl(other.ctrl), 
-        mem(other.mem), 
-        regs(other.regs), 
-        ir(other.ir), 
-        state(other.state),
-        prog(new Programm(*other.prog)){    }
+A(other.A),
+B(other.B),
+PC(other.PC),
+MDR(other.MDR),
+aluout(other.aluout),
+inst_count(other.inst_count),
+clock_count(other.clock_count),
+ctrl(other.ctrl),
+mem(other.mem),
+regs(other.regs),
+ir(other.ir),
+state(other.state),
+prog(new Program(*other.prog)) {
+}
 
 Machine::~Machine() {
     if (this->state)
         delete this->state;
-    
-    if(this->prog)
+
+    if (this->prog)
         delete this->prog;
 }
 
-bool Machine::clock(/*const std::function<void(const Machine&)> fun*/) {
+bool Machine::clock(unsigned max_clock = std::numeric_limits<unsigned int>::max()) {
 
-    if (this->inst_count > 0) {
+    if (this->getOp() != IR::OPCODE::Exit) {
 
-        if (this->state) {
+        if (this->clock_count < max_clock) {
 
-            State *aux = this->state->getNext(this);
-            delete this->state;
-            this->state = aux;
+            if (this->state) {
 
-        } else {
-            this->state = new State0(this);
-        }
+                State *aux = this->state->getNext(this);
+                delete this->state;
+                this->state = aux;
 
-        if ((*this->state) == State0() && this->clock_count > 0) {
+            } else {
+                this->state = new State0(this);
+            }
+
+            this->inst_count = this->PC.getValue() / 4;
+
+            this->clock_count++;
+
+            return true;
+
+        }else{
             
-            this->inst_count--;
+            this->state = new StateException("maximum number of clocks reached");
+            
         }
-        
-        this->clock_count++;
-    
-        //fun(*this);
-        
-        return true;
 
-    } 
-    
+    }
+
     return false;
-    
+
 }
 
-void Machine::loadProgramm(UINT32 address, const Programm &prog){
-    
-    std::vector<UINT32> code = prog.getCode();
-    
-    if(this->prog)
-        delete this->prog;
-    
-    this->prog = new Programm(prog);
+//bool Machine::clock() {
+//
+//    if (this->inst_count > 0) {
+//
+//        if (this->state) {
+//
+//            State *aux = this->state->getNext(this);
+//            delete this->state;
+//            this->state = aux;
+//
+//        } else {
+//            this->state = new State0(this);
+//        }
+//
+//        if ((*this->state) == State0() && this->clock_count > 0) {
+//            
+//            this->inst_count--;
+//        }
+//        
+//        this->clock_count++;
+//        
+//        return true;
+//
+//    } 
+//    
+//    return false;
+//    
+//}
 
-    //this->reset();
+void Machine::loadProgram(UINT32 address, const Program &prog) {
+
+    std::vector<UINT32> code = prog.getCode();
+
+    if (this->prog)
+        delete this->prog;
+
+    this->prog = new Program(prog);
 
     this->PC.setValue(address);
     this->inst_count = code.size();
-    
-    
-    for (unsigned int i = 0; i < code.size(); i++) {
+
+    unsigned int i = 0;
+    for (; i < code.size(); i++) {
         this->mem.write(address + (i * 4), code[i]);
     }
+
+    this->mem.write(address + (i * 4), 0xffffffff);
+
 }
-
-
 
 void Machine::loadProgram(
-        UINT32 address, 
-        std::string filename, const std::function<void(const Machine&)> fun
-) {
-    
-    std::vector<UINT32> code = Programm::read(filename);
-    
-    if(this->prog)
+        UINT32 address,
+        std::string filename, const std::function<void(const Machine&) > fun
+        ) {
+
+    std::vector<UINT32> code = Program::read(filename);
+
+    if (this->prog)
         delete this->prog;
-    
-    this->prog = new Programm(code);
+
+    this->prog = new Program(code);
 
     this->PC.setValue(address);
     this->inst_count = code.size();
-    
-    
-    for (unsigned int i = 0; i < code.size(); i++) {
+
+
+    unsigned int i = 0;
+    for (; i < code.size(); i++) {
         this->mem.write(address + (i * 4), code[i]);
     }
+
+    this->mem.write(address + (i * 4), 0xffffffff);
 
 }
 
@@ -259,47 +297,47 @@ std::ostream& operator<<(std::ostream& os, const Machine& obj) {
 
 std::string Machine::getJson() const {
 
-        std::stringbuf buffer;
-        std::ostream os(&buffer);
-        
-        os << "{ ";
-        
-        if(this->prog){
-            
-            os << "\"program\":" << this->prog->getJson() << ", ";
-            
-        } else {
-            
-            os << "\"program\":null, ";
-            
-        }
-        
-        
-        
-        if(this->state){
-            
-            os << "\"state\":" << state->getJson() << ", ";
-            
-        } else {
-            
-            os << "\"state\":null, ";
-            
-        }
-        
-        os << "\"inst_count\":" << inst_count << ", ";
-        os << "\"clock_count\":" << clock_count << ", ";
-        os << "\"A\":" << A.getJson() << ", ";
-        os << "\"B\":" << B.getJson() << ", ";
-        os << "\"PC\":" << PC.getJson() << ", ";
-        os << "\"MDR\":" << MDR.getJson() << ", ";
-        os << "\"aluout\":" << aluout.getJson() << ", ";
-        os << "\"IR\":" << ir.getJson() << ", ";
-        os << "\"ctrl\":" << ctrl.getJson() << ", ";
-        os << "\"regs\":" << regs.getJson() << ", ";
-        os << "\"mem\":" << mem.getJson();
-        
-        os << " }";
+    std::stringbuf buffer;
+    std::ostream os(&buffer);
 
-        return buffer.str();
+    os << "{ ";
+
+    if (this->prog) {
+
+        os << "\"program\":" << this->prog->getJson() << ", ";
+
+    } else {
+
+        os << "\"program\":null, ";
 
     }
+
+
+
+    if (this->state) {
+
+        os << "\"state\":" << state->getJson() << ", ";
+
+    } else {
+
+        os << "\"state\":null, ";
+
+    }
+
+    os << "\"inst_count\":" << inst_count << ", ";
+    os << "\"clock_count\":" << clock_count << ", ";
+    os << "\"A\":" << A.getJson() << ", ";
+    os << "\"B\":" << B.getJson() << ", ";
+    os << "\"PC\":" << PC.getJson() << ", ";
+    os << "\"MDR\":" << MDR.getJson() << ", ";
+    os << "\"aluout\":" << aluout.getJson() << ", ";
+    os << "\"IR\":" << ir.getJson() << ", ";
+    os << "\"ctrl\":" << ctrl.getJson() << ", ";
+    os << "\"regs\":" << regs.getJson() << ", ";
+    os << "\"mem\":" << mem.getJson();
+
+    os << " }";
+
+    return buffer.str();
+
+}

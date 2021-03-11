@@ -25,7 +25,7 @@
 #include <functional>
 
 class State;
-class Programm;
+class Program;
 class Machine : public ToJson, public Resettable{
 public:
     
@@ -48,11 +48,9 @@ public:
         this->regs.write(29, this->mem.getSize() - 1);  // $sp      
     }
     
-    bool clock(
-        /*const std::function<void(const Machine&)> fun = 
-            [](const Machine& mach){ std::cout << mach << std::endl; }*/);
+    bool clock(unsigned max_clock);
         
-    void loadProgramm(UINT32 address, const Programm &prog);
+    void loadProgram(UINT32 address, const Program &prog);
             
     void loadProgram(
         UINT32 address, 
@@ -176,7 +174,7 @@ private:
     IR ir;
     State *state = 0;
     
-    Programm *prog;
+    Program *prog;
     
 };
 

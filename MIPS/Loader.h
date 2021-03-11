@@ -21,7 +21,7 @@
 #include "ToJson.h"
 #include "Memory.h"
 #include "Machine.h"
-#include "Programm.h"
+#include "Program.h"
 
 class Loader : public ToJson {
 public:
@@ -63,14 +63,14 @@ public:
 
     }
 
-    void loadAndRun(const Programm &prog, UINT32 address = 0) {
+    void loadAndRun(const Program &prog, UINT32 address = 0, unsigned max_clock = 100) {
 
         this->output.clear();
         this->output_json.clear();
         this->mach.reset();
-        this->mach.loadProgramm(address, prog);
-
-        while (mach.clock()) {
+        this->mach.loadProgram(address, prog);        
+        
+        while (mach.clock(max_clock)) {
 
             this->output_json.push_back(mach.getJson());
 

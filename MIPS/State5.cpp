@@ -21,7 +21,7 @@ State5::State5(const State5 &orig) : State(orig) {}
 
 State5::State5(Machine *mach) : State("State 5: Acesso à memória(escrita)")
 {
-    mach->set_ctrl_state_5();
+    void set_ctrl_state_5();
     mach->mem_aluout_recebe_b();
 }
 

@@ -18,7 +18,7 @@
 
 class StateException : public State{
 public:
-    StateException();
+    StateException(std::string msg);
     StateException(const StateException& orig);
     virtual ~StateException();
     virtual State* getNext(Machine *machine) const;

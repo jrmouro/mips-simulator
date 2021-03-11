@@ -5,14 +5,14 @@
  */
 
 /* 
- * File:   Programm.h
+ * File:   Program.h
  * Author: ronaldo
  *
  * Created on 17 de Fevereiro de 2021, 16:20
  */
 
-#ifndef PROGRAMM_H
-#define PROGRAMM_H
+#ifndef PROGRAM_H
+#define PROGRAM_H
 
 #include "Memory.h"
 #include "ToJson.h"
@@ -21,35 +21,22 @@
 #include <fstream>
 #include <cstring>
 
-class Programm : public ToJson
+class Program : public ToJson
 {
 public:
-    Programm()
-    {
-    }
+    Program() {  }
 
-    Programm(std::vector<UINT32> code) : code(code)
-    {
-    }
+    Program(std::vector<UINT32> code) : code(code)  {  }
 
-    Programm(std::vector<std::string> code) : code(read(code))
-    {
-    }
+    Program(std::vector<std::string> code) : code(read(code)) {  }
 
-    Programm(std::string filename) : code(read(filename))
-    {
-    }
+    Program(std::string filename) : code(read(filename)) {  }
 
-    Programm(const Programm &other) : code(other.code)
-    {
-    }
+    Program(const Program &other) : code(other.code) { }
 
-    virtual ~Programm()
-    {
-    }
+    virtual ~Program() { }
 
-    static std::vector<UINT32> read(std::vector<std::string> code)
-    {
+    static std::vector<UINT32> read(std::vector<std::string> code) {
 
         std::vector<UINT32> ret;
 
@@ -68,7 +55,7 @@ public:
                 }
             }
 
-            UINT32 c = (UINT32)std::stoi(elem, 0, 2);
+            UINT32 c = (UINT32)((int)std::stol(elem, 0, 2));
 
             ret.push_back(c);
         }
@@ -108,7 +95,7 @@ public:
                     }
                 }
 
-                UINT32 c = (UINT32)std::stoi(linecode, 0, 2);
+                UINT32 c = (UINT32)((int)std::stol(linecode, 0, 2));
 
                 code.push_back(c);
             }
@@ -118,7 +105,7 @@ public:
         else
         {
 
-            throw std::invalid_argument("invalid programm filename: " + filename);
+            throw std::invalid_argument("invalid program filename: " + filename);
         }
 
         return code;
@@ -159,4 +146,4 @@ private:
     std::vector<UINT32> code;
 };
 
-#endif /* PROGRAMM_H */
+#endif /* PROGRAM_H */

@@ -14,6 +14,8 @@ block content
         input(type="file" name="input-file" id='textfile')
       div(class="buttons fgrow-1 m-2")
         input(type="submit" name="btn_exec" value="exec")
+        label(for="inpt_max_clock") Max clock:
+        input(type="number" name="inpt_max_clock" value=max_clock)
         input(type="submit" name="btn_clock" formaction="/clock" value="clock")
         input(type="submit" name="btn_reset" formaction="/reset" value="reset")
     div(class="fgrow-3")

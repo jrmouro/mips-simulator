@@ -30,7 +30,8 @@ public:
         I_Type_BNE = 5,
         I_Type_ADDI = 8,
         I_Type_J = 2,
-        I_Type_JAL = 3
+        I_Type_JAL = 3,
+        Exit = 63
     };
 
     enum FUNCT {

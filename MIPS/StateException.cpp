@@ -13,13 +13,13 @@
 
 #include "StateException.h"
 
-StateException::StateException():State("State Exception") {}
+StateException::StateException(std::string msg):State("State Exception: " + msg) {}
 
 StateException::StateException(const StateException& orig):State(orig) {}
 
 StateException::~StateException() {}
 
 State* StateException::getNext(Machine *machine)const{
-    return new StateException();
+    return new StateException(*this);
 }
 

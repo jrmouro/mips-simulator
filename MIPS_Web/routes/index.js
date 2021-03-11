@@ -24,8 +24,9 @@ router.get('/', function (req, res, next) {
         frame: _frames.self[_frames.current], 
         code: _frames.code, 
         current: _frames.current,
-        length: frames.self.length,
-        mem_words: frames.mem_words
+        length: _frames.self.length,
+        mem_words: _frames.mem_words,
+        max_clock: _frames.max_clock
       }
     );
 
@@ -33,7 +34,7 @@ router.get('/', function (req, res, next) {
 
     req.session.frames_id = uuidv4();
 
-    getMipsframes(req.session.frames_id, 16, "")
+    getMipsframes(req.session.frames_id, 16, "", 100)
       .then((frames) => {
         req.app.frames_session[req.session.frames_id] = frames;
         res.render(
@@ -44,7 +45,8 @@ router.get('/', function (req, res, next) {
             code: frames.code, 
             current: frames.current,
             length: frames.self.length,
-            mem_words: frames.mem_words
+            mem_words: frames.mem_words,
+            max_clock: frames.max_clock
           }
         );
       })

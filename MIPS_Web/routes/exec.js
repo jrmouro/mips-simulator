@@ -17,7 +17,9 @@ router.post('/', function (req, res, next) {
 
     var code = req.body.code;
     var mem_size = req.body.inpt_mem_size;
-    getMipsframes(req.session.frames_id, mem_size, code)
+    var max_clock = req.body.inpt_max_clock;
+
+    getMipsframes(req.session.frames_id, mem_size, code, max_clock)
       .then((frames) => {        
         var current = frames.self.length - 1;
         req.app.frames_session[req.session.frames_id] = frames;
@@ -30,7 +32,8 @@ router.post('/', function (req, res, next) {
             code: code, 
             current: current,
             length: frames.self.length,
-            mem_words: frames.mem_words
+            mem_words: frames.mem_words,
+            max_clock: frames.max_clock
           }
         );
       })

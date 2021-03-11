@@ -17,12 +17,13 @@ router.post('/', function (req, res, next) {
 
     var code = req.body.code;
     var mem_size = req.body.inpt_mem_size;
+    var max_clock = req.body.inpt_max_clock;
 
     if (req.app.frames_session[req.session.frames_id].code != code ||
       req.app.frames_session[req.session.frames_id].mem_words != mem_size) {
 
       
-      getMipsframes(req.session.frames_id, mem_size, code)
+      getMipsframes(req.session.frames_id, mem_size, code, max_clock)
         .then((frames) => {
           var current = 0;
           req.app.frames_session[req.session.frames_id] = frames;
@@ -35,7 +36,8 @@ router.post('/', function (req, res, next) {
               code: code,
               current: current,
               length: frames.self.length,
-              mem_words: frames.mem_words
+              mem_words: frames.mem_words,
+              max_clock: frames.max_clock
             }
           );
         })
@@ -62,7 +64,8 @@ router.post('/', function (req, res, next) {
         code: code,
         current: current,
         length: req.app.frames_session[req.session.frames_id].self.length,
-        mem_words: req.app.frames_session[req.session.frames_id].mem_words
+        mem_words: req.app.frames_session[req.session.frames_id].mem_words,
+        max_clock: req.app.frames_session[req.session.frames_id].max_clock
       }
     );
 
@@ -71,8 +74,6 @@ router.post('/', function (req, res, next) {
     res.redirect('/');
 
   }
-
-  console.log("xxxxxxxxxxxxxx");
 
 });
 

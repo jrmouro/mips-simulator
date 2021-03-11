@@ -60,5 +60,5 @@ State *State1::getNext(Machine *machine) const
         return new State9(machine);
     }
 
-    return new StateException();
+    return new StateException("opcode does not found");
 }

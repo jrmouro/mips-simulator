@@ -14,6 +14,7 @@
 #include "State0.h"
 #include "State1.h"
 #include "Machine.h"
+#include "IR.h"
 
 State0::State0() : State("State 0: Busca da Instrução") {}
 
@@ -29,5 +30,7 @@ State0::~State0() {}
 
 State *State0::getNext(Machine *machine) const
 {
-    return new State1(machine);
+    if(machine->getOp() != IR::OPCODE::Exit)
+        return new State1(machine);
+    return new State0(machine);
 }

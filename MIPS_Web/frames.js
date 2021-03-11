@@ -1,7 +1,7 @@
 var fs = require('fs');
 const { spawn } = require('child_process');
 
-async function getMipsFrames(id, mem_words, code) {
+async function getMipsFrames(id, mem_words, code, max_clock) {
 
     return new Promise(
 
@@ -17,7 +17,7 @@ async function getMipsFrames(id, mem_words, code) {
                         return;
                     }
 
-                    var mips = spawn('../MIPS/dist/Debug/GNU-Linux/mips', [id + ".txt", id + ".json", "" + mem_words])
+                    var mips = spawn('../MIPS/dist/Debug/GNU-Linux/mips', [id + ".txt", id + ".json", "" + mem_words, "" + 0, "" + max_clock])
 
                     mips.stdout.on('data', (data) => {
                         console.log(`stdout: ${data}`);
@@ -44,7 +44,8 @@ async function getMipsFrames(id, mem_words, code) {
                                             id: id, 
                                             code: code, 
                                             current: 0,
-                                            mem_words: mem_words
+                                            mem_words: mem_words,
+                                            max_clock: max_clock
                                         };
                                         resolve(frames);
                                     }

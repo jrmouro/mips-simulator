@@ -7,8 +7,6 @@ var session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
 
 var indexRouter = require('./routes/index');
-var index2Router = require('./routes/index2');
-var usersRouter = require('./routes/users');
 var execRouter = require('./routes/exec');
 var clockRouter = require('./routes/clock');
 var resetRouter = require('./routes/reset');
@@ -40,8 +38,6 @@ app.use(session({
 
 
 app.use('/', indexRouter);
-app.use('/index2', index2Router);
-app.use('/users', usersRouter);
 app.use('/exec', execRouter);
 app.use('/clock', clockRouter);
 app.use('/reset', resetRouter);

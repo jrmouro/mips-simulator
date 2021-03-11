@@ -9,7 +9,7 @@
       <itemPath>Loader.h</itemPath>
       <itemPath>Machine.h</itemPath>
       <itemPath>Memory.h</itemPath>
-      <itemPath>Programm.h</itemPath>
+      <itemPath>Program.h</itemPath>
       <itemPath>Register.h</itemPath>
       <itemPath>Registers.h</itemPath>
       <itemPath>Resettable.h</itemPath>
@@ -65,8 +65,8 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>programm.txt</itemPath>
-    <itemPath>programm_empty.txt</itemPath>
+    <itemPath>program.txt</itemPath>
+    <itemPath>program_empty.txt</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -100,7 +100,7 @@
       </item>
       <item path="Memory.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Programm.h" ex="false" tool="3" flavor2="0">
+      <item path="Program.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Register.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -166,9 +166,9 @@
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="programm.txt" ex="false" tool="3" flavor2="0">
+      <item path="program.txt" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="programm_empty.txt" ex="false" tool="3" flavor2="0">
+      <item path="program_empty.txt" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -208,7 +208,7 @@
       </item>
       <item path="Memory.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Programm.h" ex="false" tool="3" flavor2="0">
+      <item path="Program.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Register.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -274,9 +274,9 @@
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="programm.txt" ex="false" tool="3" flavor2="0">
+      <item path="program.txt" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="programm_empty.txt" ex="false" tool="3" flavor2="0">
+      <item path="program_empty.txt" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
