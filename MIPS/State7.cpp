@@ -16,7 +16,7 @@
 #include "Machine.h"
 #include "IR.h"
 
-State7::State7():State("State 7: Conclusão de Tipo R") {}
+State7::State7():State("State 7: Conclusão de Tipo I/R") {}
 
 State7::State7(const State7& orig):State(orig){}
 

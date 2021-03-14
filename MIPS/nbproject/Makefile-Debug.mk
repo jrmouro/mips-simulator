@@ -35,9 +35,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Ctrl.o \
 	${OBJECTDIR}/Machine.o \
 	${OBJECTDIR}/Memory.o \
+	${OBJECTDIR}/Menu.o \
+	${OBJECTDIR}/MenuItem.o \
 	${OBJECTDIR}/Registers.o \
 	${OBJECTDIR}/State.o \
 	${OBJECTDIR}/State0.o \
@@ -79,11 +80,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mips: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mips ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/Ctrl.o: Ctrl.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Ctrl.o Ctrl.cpp
-
 ${OBJECTDIR}/Machine.o: Machine.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -93,6 +89,16 @@ ${OBJECTDIR}/Memory.o: Memory.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Memory.o Memory.cpp
+
+${OBJECTDIR}/Menu.o: Menu.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Menu.o Menu.cpp
+
+${OBJECTDIR}/MenuItem.o: MenuItem.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MenuItem.o MenuItem.cpp
 
 ${OBJECTDIR}/Registers.o: Registers.cpp
 	${MKDIR} -p ${OBJECTDIR}

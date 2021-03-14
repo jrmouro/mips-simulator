@@ -21,12 +21,17 @@
 #include <algorithm>
 #include <bitset>
 
+
 class Ctrl : public ToJson
 {
 public:
-    Ctrl();
-    Ctrl(const Ctrl &orig);
-    virtual ~Ctrl();
+    
+        
+    Ctrl(UINT32 value = 0) : value(value) {  }
+
+    Ctrl(const Ctrl& other) : value(other.value) { }
+
+    virtual ~Ctrl(){}
 
     virtual std::string getJson() const
     {
@@ -242,6 +247,7 @@ public:
     }
 
 private:
+    
     UINT32 value = 0;
 
     static unsigned mask_1_0(unsigned bit_index, unsigned bit_number)

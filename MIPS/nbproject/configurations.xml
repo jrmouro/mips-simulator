@@ -9,6 +9,8 @@
       <itemPath>Loader.h</itemPath>
       <itemPath>Machine.h</itemPath>
       <itemPath>Memory.h</itemPath>
+      <itemPath>Menu.h</itemPath>
+      <itemPath>MenuItem.h</itemPath>
       <itemPath>Program.h</itemPath>
       <itemPath>Register.h</itemPath>
       <itemPath>Registers.h</itemPath>
@@ -31,9 +33,10 @@
     <logicalFolder name="SourceFiles"
                    displayName="Arquivos de Código-Fonte"
                    projectFiles="true">
-      <itemPath>Ctrl.cpp</itemPath>
       <itemPath>Machine.cpp</itemPath>
       <itemPath>Memory.cpp</itemPath>
+      <itemPath>Menu.cpp</itemPath>
+      <itemPath>MenuItem.cpp</itemPath>
       <itemPath>Registers.cpp</itemPath>
       <itemPath>State.cpp</itemPath>
       <itemPath>State0.cpp</itemPath>
@@ -84,8 +87,6 @@
           <standard>8</standard>
         </ccTool>
       </compileType>
-      <item path="Ctrl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Ctrl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="IR.h" ex="false" tool="3" flavor2="0">
@@ -99,6 +100,14 @@
       <item path="Memory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Memory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Menu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Menu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MenuItem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MenuItem.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Program.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -192,8 +201,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="Ctrl.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Ctrl.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="IR.h" ex="false" tool="3" flavor2="0">
@@ -207,6 +214,14 @@
       <item path="Memory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Memory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Menu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Menu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MenuItem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MenuItem.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Program.h" ex="false" tool="3" flavor2="0">
       </item>

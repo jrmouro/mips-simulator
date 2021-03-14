@@ -9,10 +9,11 @@
         <group>
             <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/Machine.cpp</file>
             <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/Loader.h</file>
-            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/State9.cpp</file>
             <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/IR.h</file>
             <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/main.cpp</file>
-            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/State1.cpp</file>
+            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/Memory.h</file>
+            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/Ctrl.h</file>
+            <file>file:/home/ronaldo/Documentos/mips-simulator/MIPS/reset.out.program.txt</file>
         </group>
     </open-files>
 </project-private>

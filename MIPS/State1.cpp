@@ -43,6 +43,8 @@ State *State1::getNext(Machine *machine) const
     {
 
     case IR::OPCODE::R_Type:
+        if(machine->getFunct() == IR::FUNCT::JR)
+            return new State9(machine);
         return new State6(machine);
     case IR::OPCODE::I_Type_ADDI:
         return new State10(machine);

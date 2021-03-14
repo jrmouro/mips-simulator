@@ -47,6 +47,22 @@ Machine::~Machine() {
         delete this->prog;
 }
 
+void Machine::reset() {
+    this->mem.reset();
+    this->regs.reset();
+    this->ir.setValue(0);
+    this->PC.reset();
+    this->A.reset();
+    this->B.reset();
+    this->MDR.reset();
+    this->aluout.reset();
+    this->clock_count = this->inst_count = 0;
+    this->regs.write(29, this->mem.getSize()); // $sp   
+    if (this->state)
+        delete state;
+    this->state = nullptr;
+}
+
 bool Machine::clock(unsigned max_clock = std::numeric_limits<unsigned int>::max()) {
 
     if (this->getOp() != IR::OPCODE::Exit) {
@@ -69,10 +85,10 @@ bool Machine::clock(unsigned max_clock = std::numeric_limits<unsigned int>::max(
 
             return true;
 
-        }else{
-            
+        } else {
+
             this->state = new StateException("maximum number of clocks reached");
-            
+
         }
 
     }
@@ -156,6 +172,106 @@ void Machine::loadProgram(
 
 }
 
+void Machine::set_ctrl_state_0() {
+    this->ctrl.set_MemRead(1);
+    this->ctrl.set_IRWrite(1);
+    this->ctrl.set_IorD(0);
+    this->ctrl.set_ALUSrcA(0);
+    this->ctrl.set_ALUSrcB(1);
+    this->ctrl.set_ALUOp(0);
+    this->ctrl.set_PCSource(0);
+    this->ctrl.set_PcWrite(1);
+}
+
+void Machine::set_ctrl_state_1() {
+    this->ctrl.set_ALUSrcA(0);
+    this->ctrl.set_ALUSrcB(3);
+    this->ctrl.set_ALUOp(0);
+}
+
+void Machine::set_ctrl_state_2() {
+        this->ctrl.set_ALUSrcA(1);
+        this->ctrl.set_ALUSrcB(2);
+        this->ctrl.set_ALUOp(0);
+    }
+
+
+    void Machine::set_ctrl_state_3() {
+        this->ctrl.set_MemRead(1);
+        this->ctrl.set_IorD(1);
+    }
+
+
+    void Machine::set_ctrl_state_4() {
+        this->ctrl.set_RegDst(0);
+        this->ctrl.set_RegWrite(1);
+        this->ctrl.set_MemToReg(1);
+    }
+
+
+    void Machine::set_ctrl_state_5() {
+        this->ctrl.set_MemWrite(1);
+        this->ctrl.set_IorD(1);
+    }
+
+
+    void Machine::set_ctrl_state_6() {
+        this->ctrl.set_ALUSrcA(1);
+        this->ctrl.set_ALUSrcB(0);
+        this->ctrl.set_ALUOp(2);
+    }
+
+
+    void Machine::set_ctrl_state_10() {
+        this->ctrl.set_ALUSrcA(1);
+        this->ctrl.set_ALUSrcB(2);
+        this->ctrl.set_ALUOp(2);
+    }
+
+
+    void Machine::set_ctrl_state_7() {
+        this->ctrl.set_RegDst(1);
+        this->ctrl.set_RegWrite(1);
+        this->ctrl.set_MemToReg(0);
+    }
+
+    void Machine::set_ctrl_state_8() {
+        this->ctrl.set_ALUSrcA(1);
+        this->ctrl.set_ALUSrcB(00);
+        this->ctrl.set_ALUOp(1);
+        this->ctrl.set_PcWriteCond(1);
+        this->ctrl.set_PCSource(1);
+    }
+
+
+    void Machine::set_ctrl_state_9() {
+        this->ctrl.set_PcWrite(1);
+        this->ctrl.set_PCSource(2);
+    }
+
+
+    void Machine::exportMachine(std::ostream& os) {
+        if (this->state)
+            os << *this->state << std::endl << std::endl;
+
+        os << "Inst_count: " << this->inst_count << std::endl << std::endl;
+
+        os << "Clock_count: " << this->clock_count << std::endl << std::endl;
+
+        os << "Ctrl:" << std::endl << this->ctrl << std::endl << std::endl;
+
+        os << "    PC: " << this->PC << std::endl << std::endl;
+        os << "   MDR: " << this->MDR << std::endl << std::endl;
+        os << "     A: " << this->A << std::endl << std::endl;
+        os << "     B: " << this->B << std::endl << std::endl;
+        os << "ALUOUT: " << this->aluout << std::endl << std::endl;
+        os << "    IR: " << this->ir << std::endl << std::endl;
+
+        os << "Registers:" << std::endl << this->regs << std::endl << std::endl;
+        os << "Memory:" << std::endl << this->mem << std::endl << std::endl;
+
+    }
+
 void Machine::ir_recebe_mem_pc() {
     this->ir.setValue(this->mem.read(this->PC.getValue()));
 }
@@ -178,6 +294,10 @@ void Machine::aluout_recebe_pc_mais_ext_2() {
 
 BYTE Machine::getOp() {
     return this->ir.getOP();
+}
+
+BYTE Machine::getFunct() {
+    return this->ir.getfunct();
 }
 
 void Machine::address_memory_calc() {
@@ -263,33 +383,37 @@ void Machine::pc_recebe_address() {
     UINT32 pc4_right_bits = (PC.getValue() >> 28) << 28;
     UINT32 address_left2 = ir.getAddress() << 2;
 
-    this->PC.setValue(pc4_right_bits | address_left2);
     if (this->ir.getOP() == IR::OPCODE::I_Type_JAL) {
         this->regs.write(31, this->PC.getValue());
+    } else if (this->ir.getOP() == IR::OPCODE::R_Type) {
+        this->PC.setValue(this->regs.read(31));
+        return;
     }
+    this->PC.setValue(pc4_right_bits | address_left2);
+
 
 }
 
 std::ostream& operator<<(std::ostream& os, const Machine& obj) {
 
     if (obj.state)
-        os << "State: " << *obj.state << std::endl << std::endl;
+        os << *obj.state << std::endl << std::endl;
 
-    os << "Inst_count: " << obj.inst_count << std::endl << std::endl;
+    //os << "Inst_count: " << obj.inst_count << std::endl << std::endl;
 
-    os << "Clock_count: " << obj.clock_count << std::endl << std::endl;
+    //os << "Clock_count: " << obj.clock_count << std::endl << std::endl;
 
-    os << "Ctrl:" << std::endl << obj.ctrl << std::endl << std::endl;
+    //os << "Ctrl:" << std::endl << obj.ctrl << std::endl << std::endl;
 
     os << "    PC: " << obj.PC << std::endl << std::endl;
-    os << "   MDR: " << obj.MDR << std::endl << std::endl;
-    os << "     A: " << obj.A << std::endl << std::endl;
-    os << "     B: " << obj.B << std::endl << std::endl;
-    os << "ALUOUT: " << obj.aluout << std::endl << std::endl;
+    //os << "   MDR: " << obj.MDR << std::endl << std::endl;
+    //os << "     A: " << obj.A << std::endl << std::endl;
+    //os << "     B: " << obj.B << std::endl << std::endl;
+    //os << "ALUOUT: " << obj.aluout << std::endl << std::endl;
     os << "    IR: " << obj.ir << std::endl << std::endl;
 
     os << "Registers:" << std::endl << obj.regs << std::endl << std::endl;
-    os << "Memory:" << std::endl << obj.mem << std::endl << std::endl;
+    //os << "Memory:" << std::endl << obj.mem << std::endl << std::endl;
 
 
     return os;

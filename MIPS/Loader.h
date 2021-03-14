@@ -26,11 +26,14 @@
 class Loader : public ToJson {
 public:
 
-    Loader() : mach(Machine(16)) {    }
+    Loader() : mach(Machine(16)) {
+    }
 
-    Loader(const Machine& mach) : mach(mach) {    }
+    Loader(const Machine& mach) : mach(mach) {
+    }
 
-    Loader(const Loader& other) : mach(other.mach), output(other.output) {    }
+    Loader(const Loader& other) : mach(other.mach), output(other.output) {
+    }
 
     virtual ~Loader() {
     }
@@ -54,7 +57,7 @@ public:
         } else {
 
             os << this->mach.getJson();
-            
+
         }
 
         os << " ]";
@@ -68,8 +71,8 @@ public:
         this->output.clear();
         this->output_json.clear();
         this->mach.reset();
-        this->mach.loadProgram(address, prog);        
-        
+        this->mach.loadProgram(address, prog);
+
         while (mach.clock(max_clock)) {
 
             this->output_json.push_back(mach.getJson());
@@ -85,15 +88,83 @@ public:
 
     }
 
+    void load(const Program &prog, UINT32 address = 0, unsigned max_clock = 100) {
+        this->output.clear();
+        this->output_json.clear();
+        this->mach.reset();
+        this->mach.loadProgram(address, prog);
+    }
+
+    void exec(unsigned max_clock) {
+        while (mach.clock(max_clock)) {
+
+            this->output_json.push_back(mach.getJson());
+
+
+            std::stringbuf buffer;
+            std::stringbuf fullbuffer;
+
+            std::ostream os(&buffer);
+            std::ostream fullos(&fullbuffer);
+
+            os << this->mach;
+            this->mach.exportMachine(fullos);
+
+            this->output.push_back(buffer.str());
+            this->output_file.push_back(fullbuffer.str());
+
+        }
+    }
+
+    void reset() {
+        this->mach.reset();
+        std::stringbuf buffer;
+        std::stringbuf fullbuffer;
+        std::ostream os(&buffer);
+        std::ostream fullos(&fullbuffer);
+        os << this->mach;
+        this->mach.exportMachine(fullos);
+        this->output.clear();
+        this->output_file.clear();
+        this->output.push_back(buffer.str());
+        this->output_file.push_back(fullbuffer.str());
+    }
+
+    bool clock(unsigned max_clock) {
+        if (mach.clock(max_clock)) {
+            this->output_json.push_back(mach.getJson());
+            std::stringbuf buffer;
+            std::stringbuf fullbuffer;
+            std::ostream os(&buffer);
+            std::ostream fullos(&fullbuffer);
+            os << this->mach;
+            this->mach.exportMachine(fullos);
+            this->output.clear();
+            this->output_file.clear();
+            this->output.push_back(buffer.str());
+            this->output_file.push_back(fullbuffer.str());
+            return true;
+        }
+        return false;
+    }
+
     const std::vector<std::string>& getOutput() {
         return output;
+    }
+
+    const std::vector<std::string>& getFileOutput() {
+        return output_file;
+    }
+
+    Machine getMach() const {
+        return mach;
     }
 
 
 private:
 
     Machine mach;
-    std::vector<std::string> output, output_json;
+    std::vector<std::string> output, output_json, output_file;
 
 };
 
